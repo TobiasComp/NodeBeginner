@@ -30,7 +30,11 @@
                     });
                 }
            }
+           x.open(GET, "http://localhost:8080/tuvia/api/users");
+           x.send();
         }
+        getAllUsers();
+       
     </script>
 </body>
 </html>

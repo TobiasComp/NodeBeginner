@@ -13,7 +13,16 @@
 
         </tbody>
     </table>
-    
+    <dialog >
+        <p>name</p>
+    </dialog>
+    <span id="form-data"></span>
+    <!-- <form>
+        <label for="username">UserName: </label>
+        <input type="text" id="UserName">
+        <label for="email">email: </label>
+        <input type="text" id="email">
+    </form> -->
     <script>
         function getAllUsers() {
             var x = new XMLHttpRequest();
@@ -22,17 +31,61 @@
                     let arr = JSON.parse(this.responseText)
                     let tbl = document.querySelector('table tbody')
                     arr.forEach(user => {
-                        tbl.innerHTML += '<tr>' + 
+                        tbl.innerHTML += "<tr>" + 
                             '<td>' + user.id + '</td>' + 
                             '<td>' + user.name + '</td>' + 
                             '<td>' + user.email + '</td>' + 
                         '</tr>';
                     });
                 }
+                setDialogAndClicks()
+
            }
-           x.open(GET, "http://localhost:8080/tuvia/api/users");
+           //x.open("GET", "http://localhost:8080/tuvia/api/users");
+           x.open("GET", "http://localhost:3000/users")
            x.send();
         }
+
+        setDialogAndClicks = () => {
+            let rows = document.querySelectorAll('table tbody tr')
+            rows.forEach(r => {
+                r.onclick = ev => {
+                    //getPersonalDataForDialog(r)
+                    userForm(r)
+                }
+            })
+        }
+        function userForm(row){
+            let f = document.getElementById("form-data");
+/*             f.innerHTML =  
+ */
+            
+        }
+
+   /*  getPersonalDataForDialog = r => {
+        let id = r.querySelector('td').textContent
+        var x = new XMLHttpRequest();
+        x.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                
+                let data = JSON.parse(this.responseText)//[0]
+                let p = document.querySelector('dialog p')
+                p.innerHTML = data.name
+
+                let d = document.querySelector('dialog')
+                d.showModal()
+                setTimeout(()=>{
+                    d.close()
+                }, 3000)
+            }
+        };
+    //x.open("GET", "http://localhost:8080/tuvia/api/users/" + id);
+    x.open("GET", "http://localhost:3000/users/"+ id)
+    x.send();
+} */
+
+
         getAllUsers();
        
     </script>
